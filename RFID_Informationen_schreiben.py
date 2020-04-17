@@ -22,6 +22,7 @@ my_message_5 = "The Sector 8 looks like this: "
 my_message_6 = "The Sector 8 will be filled with 0xFF"
 my_message_7 = "That's how the new Sector 8 looks like: "
 my_message_8 = "Now the Sector 8 is with 0x00 filled: "
+my_message_9 = "It's not empty: "
 
 #Definitionen 
 def my_read(signal , frame):
@@ -91,6 +92,20 @@ while continue_reading:
             for x in range(0 , 16):
                 my_data.append(0x00)
 
+            #my_data mit 0x00 füllen
             print(my_message_8)
             MIFAREReader.MFRC522_Write(8, my_data)
             print("\n")
+            
+            #Anzeigen von my_data
+            print(my_message_9)
+            MIFAREReader.MFRC522_Write(8)
+            print("\n")
+
+            #Prozess stoppen
+            MIFAREReader.MFRC522_StopCrypto1()
+
+            #Stoppen des Ausleseprozess
+            continue_reading = False
+        else:
+            print(my_message_4)
